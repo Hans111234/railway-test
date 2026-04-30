@@ -33,6 +33,11 @@ def health_check():
 def advisor():
     data = request.get_json(force=True) or {}
 
+    # DEBUG: Shows whether Railway can read the environment variable.
+    # Safe: only prints first 7 chars, never the full key.
+    api_key_debug = os.getenv("OPENAI_API_KEY")
+    print("DEBUG OPENAI_API_KEY:", (api_key_debug[:7] + "...") if api_key_debug else "None", flush=True)
+
     size = data.get("size", "4mm")
     colors = data.get("colors", [])
     fixed_logic_text = data.get("fixed_logic_text", "")
